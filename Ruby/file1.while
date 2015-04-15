@@ -1,5 +1,0 @@
-x:=5;
-_y:=6;
-//this is a comment; and this is a test;
-z:=x + y;
-EOF
