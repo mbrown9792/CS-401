@@ -1,0 +1,76 @@
+
+start :-
+	nl, write('Do not add punctuation at the end of the sentence!'), nl,
+	write('To end program, type in stop'), nl,
+	take_input.
+
+take_input :-
+	isPeriod(.).
+	isPeriod(?).
+	read_line_to_codes(user_input, InputWord),
+	atom_codes(InputString, InputWord),
+	atomic_list_concat(List, ' ', InputString),
+	(InputString == 'stop' -> nl, abort ; pattern_match(List)).
+
+pattern_match([X,'is','a', Y]) :-
+	connect(X, Y),
+	write('ok'), nl,
+	take_input.
+
+pattern_match([X,'is','an', Y]) :-
+	connect(X, Y),
+	write('ok'), nl,
+	take_input.
+
+pattern_match(['A', X, 'is', 'a', Y]) :-
+	connect(X, Y),
+	write('ok'), nl,
+	take_input.
+
+pattern_match(['A', X, 'is', 'an', Y]) :-
+	connect(X, Y),
+	write('ok'), nl,
+	take_input.
+
+pattern_match(['Is', X, 'a', Y]) :-
+	checking(X, Y).
+
+pattern_match(['Is', X, 'an', Y]) :-
+	checking(X, Y).
+
+pattern_match(['Is', 'a', X, 'a', Y]) :-
+	checking(X, Y).
+
+pattern_match(['Is', 'an', X, 'an', Y]) :-
+	checking(X, Y).
+
+pattern_match(['Is', 'an', X, 'a', Y]) :-
+	checking(X, Y).
+
+pattern_match(['Is', 'a', X, 'an', Y]) :-
+	checking(X, Y).
+
+connect(X, Y) :- assert(link(X, Y)).
+
+checking(X,Y) :-
+	link(X,Y),
+	checkingSingleLink(X,Y);
+	link(X,A),
+	link(A,Y),
+	checkingDoubleLink(X,Y).
+
+checkingSingleLink(X,Y) :-
+	link(X,Y),
+	write('yes'), nl,
+	take_input;
+	write('unknown'), nl,
+	take_input.
+
+checkingDoubleLink(X,Y) :-
+	link(X, A),
+	link(A, Y),
+	write('yes'), nl,
+	take_input;
+	write('unknown'), nl,
+	take_input.
+
