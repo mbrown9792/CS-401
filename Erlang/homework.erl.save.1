@@ -1,0 +1,16 @@
+-module(homework).
+
+-export([(makeUser/0),(makeUsers/2)]).
+
+makeUser() ->
+makeUser(Username) ->
+
+-export([(signIn/2), (signOut/2)]).
+
+signIn(Username, {Status, off}) -> signIn(Username, {Status, on});
+signOut(UserName, {Status, on}) -> signOut(Username, {Status, off}).
+
+send(Msg) ->
+send(Username, Msg) -> io:fwrite(Username + "->" + Msg).
+
+
